@@ -2,10 +2,13 @@
 
 File caching library supporting clusters and multiple instances for Node.JS and also cache engine for [cacheman](https://github.com/cayasso/cacheman).
 
+
+[![Build Status](https://travis-ci.org/VarunBatraIT/cacheman-file-cluster.svg?branch=master)](https://travis-ci.org/VarunBatraIT/cacheman-file-cluster)
+
 ## Instalation
 
 ``` bash
-$ npm i cacheman-file-cluster -S 
+$ npm i cacheman-file-cluster -S
 ```
 
 ## Usage
