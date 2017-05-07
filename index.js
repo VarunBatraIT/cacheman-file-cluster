@@ -11,13 +11,15 @@ const Noop = function() {};
  */
 function FileStore(options) {
   var self = this;
+  this.options = options;
   self.tmpDir = options.tmpDir || Path.join(process.cwd(), 'tmp');
 
-  if (!Fs.existsSync(self.tmpDir)) Fs.mkdirSync(self.tmpDir);
+  if (!Fs.existsSync(self.tmpDir))
+    Fs.mkdirSync(self.tmpDir);
 
   var cacheFiles = Fs.readdirSync(self.tmpDir);
   self.cache = {};
-  cacheFiles.forEach(function(file) {
+  cacheFiles.forEach((file) => {
     file = file.replace('.json', '');
     self.cache[file] = true;
   });
@@ -50,7 +52,8 @@ FileStore.prototype.get = function get(key, fn) {
     return fn(null, null);
   }
 
-  if (!data) return fn(null, data);
+  if (!data)
+    return fn(null, data);
   if (data.expire < Date.now()) {
     this.del(key);
     return fn(null, null);
@@ -76,10 +79,13 @@ FileStore.prototype.get = function get(key, fn) {
  * @api public
  */
 FileStore.prototype.set = function set(key, val, ttl, fn) {
-  var data, self = this;
+  var data,
+    self = this;
 
-  if (typeof val === 'undefined' || null) return fn(new Error('val not set'));
-  if (typeof ttl === 'function') fn = ttl;
+  if (typeof val === 'undefined' || null)
+    return fn(new Error('val not set'));
+  if (typeof ttl === 'function')
+    fn = ttl;
   fn = fn || Noop;
   ttl = ttl * 1000 || 60 * 1000;
 
@@ -166,18 +172,23 @@ FileStore.prototype.clear = function clear(key, fn) {
  * Get all cached entries
  * @param {Function} fn
  */
-FileStore.prototype.getAll = function (fn) {
-  var self = this;
-  var entries = [], cache = self.cache;
+FileStore.prototype.getAll = function(fn) {
 
-  Object.keys(cache).forEach(function (entry) {
-    self.get(entry, function (err, result) {
-      if (err) return fn(err);
+  var self = this;
+  // re-initialize for reading cache from folder again. Ensuring all keys are in memory
+  FileStore(self.options)
+  var entries = [],
+    cache = self.cache;
+
+  Object.keys(cache).forEach(function(entry) {
+    self.get(entry, function(err, result) {
+      if (err)
+        return fn(err);
       entries.push(result);
     });
   });
 
-  process.nextTick(function () {
+  process.nextTick(function() {
     fn(null, entries);
   });
 };
