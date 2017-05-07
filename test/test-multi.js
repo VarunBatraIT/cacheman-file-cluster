@@ -3,7 +3,7 @@ var Path = require('path');
 var Fs = require('fs-extra');
 var sanitize = require('sanitize-filename');
 var Cache = require('../');
-
+// supports multiple instances
 describe('cacheman-file-multi', function() {
   var cache1,
     cache2;
