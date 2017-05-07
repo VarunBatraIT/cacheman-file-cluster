@@ -1,6 +1,6 @@
 {
   "name": "cacheman-file-cluster",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "File caching library supporting clusters for Node.JS and also cache engine for cacheman",
   "author": "Varun Batra <codevarun@gmail.com>",
   "main": "index.js",
