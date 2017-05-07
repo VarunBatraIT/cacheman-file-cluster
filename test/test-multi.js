@@ -55,4 +55,30 @@ describe('cacheman-file-multi', function() {
       });
     });
   });
+  it('should get all items from each instances', function(done) {
+    cache1.set('test1', {
+      b: 1
+    }, function(err) {
+      if (err)
+        return done(err);
+      cache1.set('test2', {
+        b: 1
+      }, function(err) {
+        if (err)
+          return done(err);
+        cache1.set('test3', {
+          b: 1
+        }, function(err) {
+          if (err)
+            return done(err);
+          cache2.getAll(function(err, data) {
+            if (err)
+              return done(err);
+            assert.equal(data.length, 3);
+            done();
+          });
+        });
+      });
+    });
+  });
 });

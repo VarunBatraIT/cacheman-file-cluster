@@ -176,10 +176,9 @@ FileStore.prototype.getAll = function(fn) {
 
   var self = this;
   // re-initialize for reading cache from folder again. Ensuring all keys are in memory
-  FileStore(self.options)
+  FileStore.call(this, self.options)
   var entries = [],
     cache = self.cache;
-
   Object.keys(cache).forEach(function(entry) {
     self.get(entry, function(err, result) {
       if (err)
