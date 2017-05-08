@@ -15,7 +15,9 @@ $ npm i cacheman-file-cluster -S
 
 ```javascript
 var CachemanFile = require('cacheman-file-cluster');
-var cache = new CachemanFile();
+var cache = new CachemanFile({
+  tmpDir: "./cache"
+});
 
 // set the value
 cache.set('my key', { foo: 'bar' }, function (error) {
