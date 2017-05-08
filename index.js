@@ -15,7 +15,11 @@ function FileStore(options) {
   self.tmpDir = options.tmpDir || Path.join(process.cwd(), 'tmp');
 
   if (!Fs.existsSync(self.tmpDir))
-    Fs.mkdirSync(self.tmpDir);
+    try {
+      Fs.mkdirSync(self.tmpDir);
+    } catch (e) {
+      // probably another cluster created it
+    }
 
   var cacheFiles = Fs.readdirSync(self.tmpDir);
   self.cache = {};
